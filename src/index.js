@@ -1,5 +1,6 @@
 import { createElement } from 'lwc';
 import MyApp from 'my/app';
+import '@lwc/synthetic-shadow';
 
 /* Code that launches the top-level lwc. */
 const app = createElement('my-app', { is: MyApp });
