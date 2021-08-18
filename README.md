@@ -1,6 +1,13 @@
 # loe-scaffold
 
-Here will be some information about the app.
+This application is a scaffolding for a Lightning Web Component OSS Electron application.
+It is an expansion of what is created with [create-lwc-app](https://github.com/muenzpraeger/create-lwc-app) in ways that I find useful, and I hope you find useful as well.
+
+The main additions to what is done with create-lwc-app:
+- I added preload-based ipc communication between the renderer process and the main process, and
+made a simple example sending information from renderer to main, and from main to renderer.
+- I added all the libraries, resources and setup code to use the oss versions of lightning base components and slds, and used a lightning-button in the app to demonstrate. The setup steps came from 
+[this article](https://developer.salesforce.com/blogs/2020/12/build-connected-apps-anywhere-using-lightning-base-components).
 
 ## How to start?
 
