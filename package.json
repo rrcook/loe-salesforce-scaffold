@@ -1,9 +1,10 @@
 {
     "name": "loe-scaffold",
     "description": "LWC OSS Electron scaffold app with ipc communication",
+    "main": "scripts/main.js",
     "version": "0.0.1",
     "author": "Richard Cook",
-    "bugs": "https://github.com/Richard Cook/loe-scaffold/issues",
+    "bugs": "https://github.com/rrcook/loe-scaffold/issues",
     "dependencies": {
         "@salesforce-ux/design-system": "^2.15.9",
         "compression": "^1.7.4",
@@ -13,6 +14,7 @@
     },
     "devDependencies": {
         "electron": "^13.2.1",
+        "electron-builder": "^22.11.7",
         "eslint": "^7.32.0",
         "eslint-plugin-inclusive-language": "^2.1.1",
         "husky": "^7.0.1",
@@ -24,7 +26,7 @@
         "npm": ">=6.4.1",
         "yarn": ">=1.9.4"
     },
-    "homepage": "https://github.com/Richard Cook/loe-scaffold",
+    "homepage": "https://github.com/rrcook/loe-scaffold",
     "keywords": [
         "lwc"
     ],
@@ -38,7 +40,7 @@
         "precommit": "npm run prettier:verify && [ $? -eq 0 ] && npm run lint",
         "prettier": "prettier --write \"**/*.{css,html,js,json,md,ts,yaml,yml}\"",
         "prettier:verify": "prettier --list-different \"**/*.{css,html,js,json,md,ts,yaml,yml}\"",
-        "start": "node scripts/server.js",
+        "start": "electron scripts/main.js",
         "test:unit": "lwc-services test:unit",
         "test:unit:coverage": "lwc-services test:unit --coverage",
         "test:unit:debug": "lwc-services test:unit --debug",
