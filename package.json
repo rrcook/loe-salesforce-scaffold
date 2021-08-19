@@ -35,6 +35,7 @@
     "scripts": {
         "build": "lwc-services build -m production",
         "build:development": "lwc-services build",
+        "dist": "electron-builder -wlm",
         "lint": "eslint ./src/**/*.js",
         "postinstall": "husky install",
         "precommit": "npm run prettier:verify && [ $? -eq 0 ] && npm run lint",
@@ -46,5 +47,51 @@
         "test:unit:debug": "lwc-services test:unit --debug",
         "test:unit:watch": "lwc-services test:unit --watch",
         "watch": "lwc-services watch"
+    },
+    "build": {
+        "appId": "com.loe.loeScaffold",
+        "asar": false,
+        "productName": "LOEScaffold",
+        "mac": {
+            "category": "public.app-category.utilities"
+        },
+        "dmg": {
+            "contents": [
+                {
+                    "x": 110,
+                    "y": 150
+                },
+                {
+                    "x": 440,
+                    "y": 150,
+                    "type": "link",
+                    "path": "/Applications"
+                }
+            ],
+            "artifactName": "loe-scaffold-${version}.${ext}"
+        },
+        "win": {
+            "target": [
+                {
+                    "target": "nsis",
+                    "arch": [
+                        "x64"
+                    ]
+                },
+                {
+                    "target": "portable"
+                }
+            ]
+        },
+        "nsis": {
+            "runAfterFinish": true,
+            "artifactName": "loe-scaffold-${version}.${ext}"
+        },
+        "portable": {
+            "artifactName": "loe-scaffold.exe"
+        },
+        "linux": {
+            "target": "zip"
+        }
     }
 }
