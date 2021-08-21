@@ -4,6 +4,8 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 // Additional Tooling.
 const path = require('path');
 
+console.log(`app getpath is ${app.getAppPath()}, dirname is ${__dirname}`);
+
 let mainWindow;
 
 function createWindow() {
@@ -12,13 +14,13 @@ function createWindow() {
         width: 800,
         height: 600,
         webPreferences: {
-            preload: path.join(app.getAppPath(), 'app/preload.js'),
+            preload: path.join(__dirname, 'app/preload.js'),
             contextIsolation: true
         }
     });
 
     // and load the index.html of the app.
-    mainWindow.loadFile('../dist/index.html');
+    mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
 
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
