@@ -1,4 +1,4 @@
-# loe-scaffold
+# loe-salesforce-scaffold
 
 This application is a scaffolding for a Lightning Web Component OSS Electron application, plus
 logging into Salesforce and querying objects, using [jsforce](https://github.com/jsforce/jsforce).
