@@ -1,27 +1,76 @@
 <template>
-    <!-- LWC sample component <my-greeting> -->
-    <div class="center greeting">
-        <!-- <my-greeting speed="slow"></my-greeting> -->
-        <my-greeting speed="medium"></my-greeting>
-        <!-- <my-greeting speed="fast"></my-greeting> -->
-    </div>
+    <template if:true={showLoginDialog}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close">
+                        <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+                        </svg>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Login.</h2>
+                    <p class="slds-m-top_x-small">In addition to your Salesforce username and password, you need a
+                        'security token'. It should be in your email when you change passwords or you can reset your
+                        security token.
+                    </p>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning-input type="text" label="User Name" value={userName} onchange={handleUserNameChange}>
+                    </lightning-input>
+                    <lightning-input type="password" label="Password" value={password} onchange={handlePasswordChange}>
+                    </lightning-input>
+                    <lightning-input type="text" label="Security Token" value={securityToken}
+                        onchange={handleSecurityTokenChange}></lightning-input>
+                    <lightning-input type="text" label="Login URL, change to test.salesforce.com for sanboxes"
+                        value={loginURL} onchange={handleLoginURLChange}></lightning-input>
+                </div>
+                <footer class="slds-modal__footer">
+                    <template if:true={errorMessage}>
+                        <p class="slds-p-horizontal_small">{errorMessage}</p>
+                    </template>
+                    <button class="slds-button slds-button_neutral" onclick={handleLoginCancel}>Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={handleLoginAttempt}>Login</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
 
-    <div class="center">
-        <img src="./resources/lwc.png" />
-    </div>
+    <lightning-layout multiple-rows>
+        <!-- Top -->
+        <lightning-layout-item size="12">
+            <div class="slds-card">
+                <!-- Site button goes here -->
+                <lightning-layout>
+                    <lightning-layout-item size="8" class="slds-p-around_medium">
+                        <h2>{connectMessage}</h2>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="4" class="slds-p-around_medium">
+                        <button class="slds-button slds-button_brand" onclick={handleLoginClick}>Login</button>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+        </lightning-layout-item>
+        <!-- Bottom -->
+        <lightning-layout-item size="12" small-device-size="12" large-device-size="12">
+            <div class="slds-card">
+                <lightning-layout>
+                    <lightning-layout-item>
+                        <lightning-button variant="brand" label="Get Accounts" disabled={loginDisabled}
+                            onclick={handleGetAccounts}></lightning-button>
+                    </lightning-layout-item>
+                </lightning-layout>
+                <lightning-layout>
+                    <lightning-layout-item>
+                        <lightning-datatable key-field="id" data={accountData} columns={accountColumns}>
+                        </lightning-datatable>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+        </lightning-layout-item>
+    </lightning-layout>
 
-    <!-- Page code -->
-    <div class="center">
-        <div class="container">
-            <!-- prettier-ignore -->
-            <p class="info">
-                Edit <strong class="code">src/modules/my/app/app.html</strong>
-                <br />and save for live reload.
-            </p>
-        </div>
-        <div>
-            <lightning-button label="Ping!" variant="brand" class="slds-m-left_x-small" id="toMain" onclick={handleClick}>
-            </lightning-button>
-        </div>
-    </div>
 </template>

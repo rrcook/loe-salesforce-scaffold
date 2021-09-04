@@ -3,10 +3,26 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 
 // Additional Tooling.
 const path = require('path');
+const jsforce = require('jsforce');
 
-console.log(`app getpath is ${app.getAppPath()}, dirname is ${__dirname}`);
+const SOQL_QUERY = "Select Id, Name from Account limit 20";
 
+// Electron window
 let mainWindow;
+
+// jsforce connection, if logged in
+let jfcLoggedIn = false;
+
+// Was there an error when logging in
+let jfcError;
+
+// connection info to keep while logged in
+let loggedConnection;
+let instanceUrl;
+let accessToken;
+let organizationId;
+let userId;
+
 
 function createWindow() {
     // Create the browser window.
@@ -51,9 +67,78 @@ app.on('activate', function () {
  * This is the location of code where the main process received ipc 
  * communication from the renderer process. 
  */
-ipcMain.on('toMain', (event, args) => { 
+ipcMain.on('toMain', (event, args) => {
     console.log(`in ToMain, args=${args}`);
 
     // Send a reply back to the renderer process. 
     mainWindow.webContents.send("fromMain", "pong");
- });
+});
+
+ipcMain.on('login', (event, loginData) => {
+    console.log(`in login, loginData`);
+    console.dir(loginData);
+
+    const conn = new jsforce.Connection({
+        // you can change loginUrl to connect to sandbox or prerelease env.
+        loginUrl: loginData.loginURL,
+        version: '51.0',
+    });
+
+    let { userName, password, securityToken } = loginData;
+    if (securityToken !== '') {
+        password = `${password}${securityToken}`;
+    }
+
+    conn.login(userName, password, (err, userInfo) => {
+        // Since we send the loginData back to the interface, it's a good idea
+        // to remove the security information.
+        loginData.password = '';
+        loginData.token = '';
+
+        if (err) {
+            console.log(`Error in login. ${err}`);
+            jfcLoggedIn = false;
+            jfcError = err;
+
+            const data = { errorMessage: err };
+            mainWindow.webContents.send("loginError", data);
+            return true;
+        }
+        // Now you can get the access token and instance URL information.
+        // Save them to establish connection next time.
+        instanceUrl = conn.instanceUrl;
+        accessToken = conn.accessToken;
+        loggedConnection = { instanceUrl, accessToken };
+        organizationId = userInfo.organizationId;
+        userId = userInfo.id;
+
+        jfcLoggedIn = true;
+
+        console.log(`We logged in, org id is ${organizationId}, access token is ${accessToken}`);
+
+        const successMessage = `We logged in, org id is ${organizationId}`;
+        const data = { successMessage };
+        mainWindow.webContents.send("loginSuccess", data);
+
+        return true;
+    });
+
+});
+
+ipcMain.on('getAccounts', (event, gaData) => {
+    // Run a SOQL query against an org.
+    const conn = new jsforce.Connection(loggedConnection);
+    conn.query(SOQL_QUERY, (err, result) => {
+        if (err) {
+            console.log(`error in query, ${err}`);
+            return true;
+        }
+        // Send records back to the interface.
+        console.log('the query worked, ');
+        console.dir(result);
+
+        mainWindow.webContents.send("displayAccounts", result.records);
+        return true;
+    });
+
+});

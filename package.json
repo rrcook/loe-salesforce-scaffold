@@ -11,6 +11,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "express": "^4.17.1",
     "helmet": "^4.6.0",
+    "jsforce": "^1.10.1",
     "lightning-base-components": "^1.13.1-alpha"
   },
   "devDependencies": {
@@ -36,7 +37,7 @@
     "lwc"
   ],
   "license": "MIT",
-  "repository": "Richard Cook/loe-scaffold",
+  "repository": "Richard Cook/loe-salesforce-scaffold",
   "scripts": {
     "build": "lwc-services build -m production",
     "build:development": "lwc-services build",
