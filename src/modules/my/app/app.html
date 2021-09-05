@@ -14,7 +14,7 @@
                     <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Login.</h2>
                     <p class="slds-m-top_x-small">In addition to your Salesforce username and password, you need a
                         'security token'. It should be in your email when you change passwords or you can reset your
-                        security token.
+                        security token inside Salesforce.
                     </p>
                 </header>
                 <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
@@ -42,11 +42,11 @@
     <lightning-layout multiple-rows>
         <!-- Top -->
         <lightning-layout-item size="12">
-            <div class="slds-card">
+            <div class="slds-border_bottom">
                 <!-- Site button goes here -->
                 <lightning-layout>
                     <lightning-layout-item size="8" class="slds-p-around_medium">
-                        <h2>{connectMessage}</h2>
+                        <h1>{connectMessage}</h1>
                     </lightning-layout-item>
                     <lightning-layout-item size="4" class="slds-p-around_medium">
                         <button class="slds-button slds-button_brand" onclick={handleLoginClick}>Login</button>
@@ -56,9 +56,9 @@
         </lightning-layout-item>
         <!-- Bottom -->
         <lightning-layout-item size="12" small-device-size="12" large-device-size="12">
-            <div class="slds-card">
+            <div>
                 <lightning-layout>
-                    <lightning-layout-item>
+                    <lightning-layout-item class="slds-p-around_medium">
                         <lightning-button variant="brand" label="Get Accounts" disabled={loginDisabled}
                             onclick={handleGetAccounts}></lightning-button>
                     </lightning-layout-item>

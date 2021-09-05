@@ -1,7 +1,7 @@
 import { LightningElement, api } from 'lwc';
 
-const CLICK_TO_LOGIN = "Click to login";
-const LOGGED_IN = "Logged in";
+const CLICK_TO_LOGIN = "Click button to log in to organization";
+const LOGGED_IN = "Logged in to organization";
 
 const ACCOUNT_COLUMNS = [
     { label: 'Id', fieldName: 'Id' },
