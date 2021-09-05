@@ -4,7 +4,7 @@
   "main": "scripts/main.js",
   "version": "0.0.1",
   "author": "Richard Cook",
-  "bugs": "https://github.com/rrcook/loe-scaffold/issues",
+  "bugs": "https://github.com/rrcook/loe-salesforce-scaffold/issues",
   "dependencies": {
     "@salesforce-ux/design-system": "^2.15.9",
     "compression": "^1.7.4",
@@ -32,7 +32,7 @@
     "npm": ">=6.4.1",
     "yarn": ">=1.9.4"
   },
-  "homepage": "https://github.com/rrcook/loe-scaffold",
+  "homepage": "https://github.com/rrcook/loe-salesforce-scaffold",
   "keywords": [
     "lwc"
   ],
