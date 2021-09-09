@@ -1,5 +1,5 @@
 {
-  "name": "loe-scaffold",
+  "name": "loe-salesforce-scaffold",
   "description": "LWC OSS Electron scaffold app with ipc communication",
   "main": "scripts/main.js",
   "version": "0.0.1",
@@ -62,7 +62,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "loe_scaffold"
+            "name": "loe_salesforce_scaffold"
           }
         },
         {
